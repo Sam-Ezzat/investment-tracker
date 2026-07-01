@@ -1,0 +1,87 @@
+@model IEnumerable<InvestmentTracker.Application.DTOs.InvestmentCycleDto>
+@{
+    ViewData["Title"] = "Investment Cycles";
+}
+
+@section Breadcrumb {
+    <li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index">Home</a></li>
+    <li class="breadcrumb-item active">Investment Cycles</li>
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">All Investment Cycles</h3>
+                <div class="card-tools">
+                    <a asp-action="Create" class="btn btn-success btn-sm">
+                        <i class="fas fa-plus"></i> New Investment Cycle
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="btn-group btn-group-sm" role="group">
+                        <a asp-action="Index" class="btn btn-outline-primary @(ViewBag.Status == null ? "active" : "")">All</a>
+                        <a asp-action="Index" asp-route-status="1" class="btn btn-outline-success @(ViewBag.Status == 1 ? "active" : "")">Active</a>
+                        <a asp-action="Index" asp-route-status="2" class="btn btn-outline-info @(ViewBag.Status == 2 ? "active" : "")">Completed</a>
+                        <a asp-action="Index" asp-route-status="3" class="btn btn-outline-secondary @(ViewBag.Status == 3 ? "active" : "")">Cancelled</a>
+                        <a asp-action="Index" asp-route-status="4" class="btn btn-outline-warning @(ViewBag.Status == 4 ? "active" : "")">On Hold</a>
+                    </div>
+                </div>
+                
+                <table class="table table-bordered table-hover datatable">
+                    <thead>
+                        <tr>
+                            <th>Participant</th>
+                            <th>Principal</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Interest Type</th>
+                            <th>Rate</th>
+                            <th>Expected Return</th>
+                            <th>Paid</th>
+                            <th>Remaining</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var cycle in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <a asp-controller="Participant" asp-action="Details" asp-route-id="@cycle.ParticipantId">
+                                        @cycle.ParticipantName
+                                    </a>
+                                </td>
+                                <td class="currency">@cycle.PrincipalAmount.ToString("N2")</td>
+                                <td>@cycle.StartDate.ToString("MMM dd, yyyy")</td>
+                                <td>@cycle.EndDate.ToString("MMM dd, yyyy")</td>
+                                <td><span class="badge badge-info">@cycle.InterestType</span></td>
+                                <td>@cycle.InterestRate.ToString("N2")%</td>
+                                <td class="currency">@cycle.FinalAmount.ToString("N2")</td>
+                                <td class="currency">@cycle.TotalPaidAmount.ToString("N2")</td>
+                                <td class="currency">@cycle.RemainingAmount.ToString("N2")</td>
+                                <td><span class="badge badge-status-@cycle.Status.ToString().ToLower()">@cycle.Status</span></td>
+                                <td class="table-actions">
+                                    <div class="btn-group btn-group-sm">
+                                        <a asp-action="Details" asp-route-id="@cycle.Id" class="btn btn-info" title="Details">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a asp-action="Edit" asp-route-id="@cycle.Id" class="btn btn-warning" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@cycle.Id" class="btn btn-danger" title="Delete">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

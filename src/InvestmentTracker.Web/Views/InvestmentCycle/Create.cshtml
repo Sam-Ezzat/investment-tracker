@@ -1,0 +1,124 @@
+@model InvestmentTracker.Application.DTOs.CreateInvestmentCycleDto
+@{
+    ViewData["Title"] = "Create Investment Cycle";
+}
+
+@section Breadcrumb {
+    <li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index">Home</a></li>
+    <li class="breadcrumb-item"><a asp-action="Index">Investment Cycles</a></li>
+    <li class="breadcrumb-item active">Create</li>
+}
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">New Investment Cycle</h3>
+            </div>
+            <form asp-action="Create" method="post">
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                    
+                    <div class="form-group">
+                        <label asp-for="ParticipantId"></label>
+                        <select asp-for="ParticipantId" class="form-control" asp-items="ViewBag.Participants">
+                            <option value="">-- Select Participant --</option>
+                        </select>
+                        <span asp-validation-for="ParticipantId" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="PrincipalAmount"></label>
+                                <input asp-for="PrincipalAmount" class="form-control" placeholder="0.00" />
+                                <span asp-validation-for="PrincipalAmount" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="StartDate"></label>
+                                <input asp-for="StartDate" type="date" class="form-control" />
+                                <span asp-validation-for="StartDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="DurationMonths"></label>
+                                <input asp-for="DurationMonths" class="form-control" placeholder="12" />
+                                <span asp-validation-for="DurationMonths" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="InterestType"></label>
+                                <select asp-for="InterestType" class="form-control">
+                                    <option value="1">Monthly Percentage</option>
+                                    <option value="2">Fixed Profit at End</option>
+                                </select>
+                                <span asp-validation-for="InterestType" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="InterestRate"></label>
+                        <input asp-for="InterestRate" class="form-control" placeholder="5.0" />
+                        <small class="form-text text-muted">
+                            For Monthly Percentage: Enter percentage rate (e.g., 5 for 5%). 
+                            For Fixed Profit at End: Enter fixed profit amount.
+                        </small>
+                        <span asp-validation-for="InterestRate" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="Notes"></label>
+                        <textarea asp-for="Notes" class="form-control" rows="3" placeholder="Enter any notes"></textarea>
+                        <span asp-validation-for="Notes" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="card card-outline card-info" id="calculationResults" style="display: none;">
+                        <div class="card-header">
+                            <h3 class="card-title">Calculation Preview</h3>
+                        </div>
+                        <div class="card-body">
+                            <dl class="row">
+                                <dt class="col-sm-6">End Date:</dt>
+                                <dd class="col-sm-6"><input type="text" id="EndDate" class="form-control-plaintext" readonly /></dd>
+                                
+                                <dt class="col-sm-6">Monthly Interest:</dt>
+                                <dd class="col-sm-6 currency" id="MonthlyInterest">0.00</dd>
+                                
+                                <dt class="col-sm-6">Total Expected Profit:</dt>
+                                <dd class="col-sm-6 currency" id="TotalExpectedProfit">0.00</dd>
+                                
+                                <dt class="col-sm-6">Final Amount:</dt>
+                                <dd class="col-sm-6 currency" id="FinalAmount">0.00</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    
+                    <button type="button" id="calculateInvestment" class="btn btn-info btn-sm">
+                        <i class="fas fa-calculator"></i> Calculate
+                    </button>
+                </div>
+                
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Create Investment Cycle
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

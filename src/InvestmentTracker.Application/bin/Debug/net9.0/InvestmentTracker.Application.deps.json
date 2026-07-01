@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "InvestmentTracker.Application/1.0.0": {
+        "dependencies": {
+          "InvestmentTracker.Core": "1.0.0"
+        },
+        "runtime": {
+          "InvestmentTracker.Application.dll": {}
+        }
+      },
+      "InvestmentTracker.Core/1.0.0": {
+        "runtime": {
+          "InvestmentTracker.Core.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "InvestmentTracker.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "InvestmentTracker.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -1,0 +1,194 @@
+@model InvestmentTracker.Application.DTOs.InvestmentCycleDto
+@{
+    ViewData["Title"] = "Investment Cycle Details";
+}
+
+@section Breadcrumb {
+    <li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index">Home</a></li>
+    <li class="breadcrumb-item"><a asp-action="Index">Investment Cycles</a></li>
+    <li class="breadcrumb-item active">Details</li>
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card card-primary card-outline">
+            <div class="card-header">
+                <h3 class="card-title">Cycle Summary</h3>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-6">Participant</dt>
+                    <dd class="col-sm-6">
+                        <a asp-controller="Participant" asp-action="Details" asp-route-id="@Model.ParticipantId">
+                            @Model.ParticipantName
+                        </a>
+                    </dd>
+                    
+                    <dt class="col-sm-6">Status</dt>
+                    <dd class="col-sm-6">
+                        <span class="badge badge-status-@Model.Status.ToString().ToLower()">@Model.Status</span>
+                    </dd>
+                    
+                    <dt class="col-sm-6">Principal</dt>
+                    <dd class="col-sm-6 currency">@Model.PrincipalAmount.ToString("N2")</dd>
+                    
+                    <dt class="col-sm-6">Interest Type</dt>
+                    <dd class="col-sm-6">@Model.InterestType</dd>
+                    
+                    <dt class="col-sm-6">Interest Rate</dt>
+                    <dd class="col-sm-6">@Model.InterestRate.ToString("N2")%</dd>
+                    
+                    <dt class="col-sm-6">Duration</dt>
+                    <dd class="col-sm-6">@Model.DurationMonths months</dd>
+                    
+                    <dt class="col-sm-6">Start Date</dt>
+                    <dd class="col-sm-6">@Model.StartDate.ToString("MMM dd, yyyy")</dd>
+                    
+                    <dt class="col-sm-6">End Date</dt>
+                    <dd class="col-sm-6">@Model.EndDate.ToString("MMM dd, yyyy")</dd>
+                    
+                    <dt class="col-sm-6">Days Remaining</dt>
+                    <dd class="col-sm-6">
+                        @if (Model.DaysRemaining > 0)
+                        {
+                            <span class="badge badge-info">@Model.DaysRemaining days</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-secondary">Completed</span>
+                        }
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        
+        <div class="card card-success">
+            <div class="card-header">
+                <h3 class="card-title">Financial Summary</h3>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-6">Principal</dt>
+                    <dd class="col-sm-6 currency">@Model.PrincipalAmount.ToString("N2")</dd>
+                    
+                    <dt class="col-sm-6">Expected Profit</dt>
+                    <dd class="col-sm-6 currency">@Model.TotalExpectedProfit.ToString("N2")</dd>
+                    
+                    <dt class="col-sm-6">Expected Return</dt>
+                    <dd class="col-sm-6 currency">@Model.FinalAmount.ToString("N2")</dd>
+                    
+                    <dt class="col-sm-6">Total Paid</dt>
+                    <dd class="col-sm-6 currency">@Model.TotalPaidAmount.ToString("N2")</dd>
+                    
+                    <dt class="col-sm-6">Remaining</dt>
+                    <dd class="col-sm-6 currency">@Model.RemainingAmount.ToString("N2")</dd>
+                </dl>
+            </div>
+        </div>
+        
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-block">
+            <i class="fas fa-edit"></i> Edit
+        </a>
+        <a asp-controller="Payment" asp-action="Create" asp-route-investmentCycleId="@Model.Id" class="btn btn-success btn-block">
+            <i class="fas fa-plus"></i> Record Payment
+        </a>
+    </div>
+    
+    <div class="col-md-8">
+        @if (ViewBag.PaymentSchedules != null && ViewBag.PaymentSchedules.Count > 0)
+        {
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Payment Schedules</h3>
+                </div>
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Scheduled Date</th>
+                                <th>Type</th>
+                                <th>Scheduled Amount</th>
+                                <th>Paid Amount</th>
+                                <th>Remaining</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var schedule in ViewBag.PaymentSchedules)
+                            {
+                                <tr>
+                                    <td>@schedule.ScheduledDate.ToString("MMM dd, yyyy")</td>
+                                    <td><span class="badge badge-info">@schedule.PaymentType</span></td>
+                                    <td class="currency">@schedule.ScheduledAmount.ToString("N2")</td>
+                                    <td class="currency">@schedule.PaidAmount.ToString("N2")</td>
+                                    <td class="currency">@schedule.RemainingAmount.ToString("N2")</td>
+                                    <td><span class="badge badge-status-@schedule.Status.ToString().ToLower()">@schedule.Status</span></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+        
+        @if (ViewBag.Payments != null && ViewBag.Payments.Count > 0)
+        {
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Payments History</h3>
+                </div>
+                <div class="card-body table-responsive p-0">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Type</th>
+                                <th>Method</th>
+                                <th>Reference</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var payment in ViewBag.Payments)
+                            {
+                                <tr>
+                                    <td>@payment.PaymentDate.ToString("MMM dd, yyyy")</td>
+                                    <td class="currency">@payment.Amount.ToString("N2")</td>
+                                    <td><span class="badge badge-info">@payment.PaymentType</span></td>
+                                    <td><span class="badge badge-secondary">@payment.PaymentMethod</span></td>
+                                    <td>@payment.ReferenceNumber</td>
+                                    <td>
+                                        <a asp-controller="Payment" asp-action="Details" asp-route-id="@payment.Id" class="btn btn-sm btn-info">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+        
+        @if (!string.IsNullOrEmpty(Model.Notes))
+        {
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Notes</h3>
+                </div>
+                <div class="card-body">
+                    @Model.Notes
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Back to List
+        </a>
+    </div>
+</div>

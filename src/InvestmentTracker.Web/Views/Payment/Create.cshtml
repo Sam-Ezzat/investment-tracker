@@ -1,0 +1,129 @@
+@model InvestmentTracker.Application.DTOs.CreatePaymentDto
+@{
+    ViewData["Title"] = "Record Payment";
+}
+
+@section Breadcrumb {
+    <li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index">Home</a></li>
+    <li class="breadcrumb-item"><a asp-action="Index">Payments</a></li>
+    <li class="breadcrumb-item active">Create</li>
+}
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Record New Payment</h3>
+            </div>
+            <form asp-action="Create" method="post">
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                    
+                    <div class="form-group">
+                        <label asp-for="InvestmentCycleId"></label>
+                        <select asp-for="InvestmentCycleId" class="form-control" asp-items="ViewBag.InvestmentCycles" id="cycleSelect">
+                            <option value="">-- Select Investment Cycle --</option>
+                        </select>
+                        <span asp-validation-for="InvestmentCycleId" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="PaymentScheduleId"></label>
+                        <select asp-for="PaymentScheduleId" class="form-control" asp-items="ViewBag.PaymentSchedules" id="scheduleSelect">
+                            <option value="">-- Optional: Link to Schedule --</option>
+                        </select>
+                        <small class="form-text text-muted">Select a schedule to link this payment, or leave blank for ad-hoc payment.</small>
+                        <span asp-validation-for="PaymentScheduleId" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Amount"></label>
+                                <input asp-for="Amount" class="form-control" placeholder="0.00" />
+                                <span asp-validation-for="Amount" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="PaymentDate"></label>
+                                <input asp-for="PaymentDate" type="date" class="form-control" />
+                                <span asp-validation-for="PaymentDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="PaymentType"></label>
+                                <select asp-for="PaymentType" class="form-control" asp-items="ViewBag.PaymentTypes">
+                                    <option value="">-- Select Type --</option>
+                                </select>
+                                <span asp-validation-for="PaymentType" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="PaymentMethod"></label>
+                                <select asp-for="PaymentMethod" class="form-control" asp-items="ViewBag.PaymentMethods">
+                                    <option value="">-- Select Method --</option>
+                                </select>
+                                <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="ReferenceNumber"></label>
+                        <input asp-for="ReferenceNumber" class="form-control" placeholder="Enter reference number" />
+                        <span asp-validation-for="ReferenceNumber" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="ReceivedBy"></label>
+                        <input asp-for="ReceivedBy" class="form-control" placeholder="Name of person who received payment" />
+                        <span asp-validation-for="ReceivedBy" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="Notes"></label>
+                        <textarea asp-for="Notes" class="form-control" rows="3" placeholder="Enter any notes"></textarea>
+                        <span asp-validation-for="Notes" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Record Payment
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        $('#cycleSelect').change(function() {
+            var cycleId = $(this).val();
+            if (cycleId) {
+                $.get('@Url.Action("LoadPaymentSchedulesForCycle")', { cycleId: cycleId }, function(data) {
+                    var scheduleSelect = $('#scheduleSelect');
+                    scheduleSelect.empty();
+                    scheduleSelect.append('<option value="">-- Optional: Link to Schedule --</option>');
+                    $.each(data, function(i, item) {
+                        scheduleSelect.append($('<option>', { 
+                            value: item.value,
+                            text: item.text 
+                        }));
+                    });
+                });
+            }
+        });
+    </script>
+}

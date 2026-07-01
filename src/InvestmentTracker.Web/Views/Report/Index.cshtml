@@ -1,0 +1,222 @@
+@{
+    ViewData["Title"] = "Reports";
+}
+
+@section Breadcrumb {
+    <li class="breadcrumb-item active">Reports</li>
+}
+
+<div class="row">
+    <!-- Participant Statement -->
+    <div class="col-lg-4 col-md-6">
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-user-chart"></i>
+                    Participant Statement
+                </h3>
+            </div>
+            <div class="card-body">
+                <p class="text-muted">Generate detailed statement for a specific participant including all their investment cycles and payments.</p>
+                
+                <form id="participantStatementForm">
+                    <div class="form-group">
+                        <label for="participantId">Participant <span class="text-danger">*</span></label>
+                        <select id="participantId" name="participantId" class="form-control" required>
+                            <option value="">-- Select Participant --</option>
+                            @foreach (var item in ViewBag.Participants)
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ps_startDate">Start Date (Optional)</label>
+                        <input type="date" id="ps_startDate" name="startDate" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ps_endDate">End Date (Optional)</label>
+                        <input type="date" id="ps_endDate" name="endDate" class="form-control">
+                    </div>
+                    
+                    <div class="btn-group w-100" role="group">
+                        <button type="submit" class="btn btn-success" formaction="@Url.Action("ParticipantStatementExcel", "Report")" formmethod="post">
+                            <i class="fas fa-file-excel"></i> Excel
+                        </button>
+                        <button type="submit" class="btn btn-danger" formaction="@Url.Action("ParticipantStatementPdf", "Report")" formmethod="post">
+                            <i class="fas fa-file-pdf"></i> PDF
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Investment Summary -->
+    <div class="col-lg-4 col-md-6">
+        <div class="card card-success">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-chart-pie"></i>
+                    Investment Summary
+                </h3>
+            </div>
+            <div class="card-body">
+                <p class="text-muted">Comprehensive summary of all investment cycles with statistics and detailed breakdown.</p>
+                
+                <form id="investmentSummaryForm">
+                    <div class="form-group">
+                        <label for="is_startDate">Start Date (Optional)</label>
+                        <input type="date" id="is_startDate" name="startDate" class="form-control">
+                        <small class="form-text text-muted">Leave empty for all investments</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="is_endDate">End Date (Optional)</label>
+                        <input type="date" id="is_endDate" name="endDate" class="form-control">
+                    </div>
+                    
+                    <div class="btn-group w-100" role="group">
+                        <button type="submit" class="btn btn-success" formaction="@Url.Action("InvestmentSummaryExcel", "Report")" formmethod="post">
+                            <i class="fas fa-file-excel"></i> Excel
+                        </button>
+                        <button type="submit" class="btn btn-danger" formaction="@Url.Action("InvestmentSummaryPdf", "Report")" formmethod="post">
+                            <i class="fas fa-file-pdf"></i> PDF
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Monthly Cash Flow -->
+    <div class="col-lg-4 col-md-6">
+        <div class="card card-info">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-money-bill-wave"></i>
+                    Monthly Cash Flow
+                </h3>
+            </div>
+            <div class="card-body">
+                <p class="text-muted">Detailed cash flow report showing all payments received during a specific month.</p>
+                
+                <form id="monthlyCashFlowForm">
+                    <div class="form-group">
+                        <label for="year">Year <span class="text-danger">*</span></label>
+                        <select id="year" name="year" class="form-control" required>
+                            @foreach (var item in ViewBag.Years)
+                            {
+                                <option value="@item.Value" selected="@(item.Value == DateTime.Now.Year.ToString())">@item.Text</option>
+                            }
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="month">Month <span class="text-danger">*</span></label>
+                        <select id="month" name="month" class="form-control" required>
+                            @foreach (var item in ViewBag.Months)
+                            {
+                                <option value="@item.Value" selected="@(item.Value == DateTime.Now.Month.ToString())">@item.Text</option>
+                            }
+                        </select>
+                    </div>
+                    
+                    <div class="btn-group w-100" role="group">
+                        <button type="submit" class="btn btn-success" formaction="@Url.Action("MonthlyCashFlowExcel", "Report")" formmethod="post">
+                            <i class="fas fa-file-excel"></i> Excel
+                        </button>
+                        <button type="submit" class="btn btn-danger" formaction="@Url.Action("MonthlyCashFlowPdf", "Report")" formmethod="post">
+                            <i class="fas fa-file-pdf"></i> PDF
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Report Information -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-info-circle"></i>
+                    Report Information
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5><i class="fas fa-user-chart text-primary"></i> Participant Statement</h5>
+                        <ul class="text-sm">
+                            <li>Individual participant details</li>
+                            <li>All investment cycles for the participant</li>
+                            <li>Payment history and status</li>
+                            <li>Total invested and profit summary</li>
+                            <li>Optional date range filtering</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <h5><i class="fas fa-chart-pie text-success"></i> Investment Summary</h5>
+                        <ul class="text-sm">
+                            <li>Overview of all investment cycles</li>
+                            <li>Summary statistics and totals</li>
+                            <li>Status breakdown (Active, Completed, etc.)</li>
+                            <li>Participant-wise investment details</li>
+                            <li>Useful for portfolio analysis</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <h5><i class="fas fa-money-bill-wave text-info"></i> Monthly Cash Flow</h5>
+                        <ul class="text-sm">
+                            <li>All payments received in the month</li>
+                            <li>Interest vs Principal breakdown</li>
+                            <li>Payment method statistics</li>
+                            <li>Transaction-by-transaction details</li>
+                            <li>Perfect for monthly accounting</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Validate participant statement form
+            $('#participantStatementForm').on('submit', function(e) {
+                var participantId = $('#participantId').val();
+                if (!participantId) {
+                    e.preventDefault();
+                    alert('Please select a participant');
+                    return false;
+                }
+            });
+
+            // Validate monthly cash flow form
+            $('#monthlyCashFlowForm').on('submit', function(e) {
+                var year = $('#year').val();
+                var month = $('#month').val();
+                if (!year || !month) {
+                    e.preventDefault();
+                    alert('Please select both year and month');
+                    return false;
+                }
+            });
+
+            // Set default selected values
+            var currentMonth = new Date().getMonth() + 1;
+            var currentYear = new Date().getFullYear();
+            $('#month').val(currentMonth);
+            $('#year').val(currentYear);
+        });
+    </script>
+}

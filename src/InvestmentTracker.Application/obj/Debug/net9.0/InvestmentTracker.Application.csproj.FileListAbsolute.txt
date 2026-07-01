@@ -1,0 +1,15 @@
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Application\bin\Debug\net9.0\InvestmentTracker.Application.deps.json
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Application\bin\Debug\net9.0\InvestmentTracker.Application.dll
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Application\bin\Debug\net9.0\InvestmentTracker.Application.pdb
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Application\bin\Debug\net9.0\InvestmentTracker.Core.dll
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Application\bin\Debug\net9.0\InvestmentTracker.Core.pdb
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Application\obj\Debug\net9.0\InvestmentTracker.Application.csproj.AssemblyReference.cache
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Application\obj\Debug\net9.0\InvestmentTracker.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Application\obj\Debug\net9.0\InvestmentTracker.Application.AssemblyInfoInputs.cache
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Application\obj\Debug\net9.0\InvestmentTracker.Application.AssemblyInfo.cs
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Application\obj\Debug\net9.0\InvestmentTracker.Application.csproj.CoreCompileInputs.cache
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Application\obj\Debug\net9.0\Investme.CDFABF53.Up2Date
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Application\obj\Debug\net9.0\InvestmentTracker.Application.dll
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Application\obj\Debug\net9.0\refint\InvestmentTracker.Application.dll
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Application\obj\Debug\net9.0\InvestmentTracker.Application.pdb
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Application\obj\Debug\net9.0\ref\InvestmentTracker.Application.dll

@@ -1,0 +1,11 @@
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Core\bin\Debug\net9.0\InvestmentTracker.Core.deps.json
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Core\bin\Debug\net9.0\InvestmentTracker.Core.dll
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Core\bin\Debug\net9.0\InvestmentTracker.Core.pdb
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Core\obj\Debug\net9.0\InvestmentTracker.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Core\obj\Debug\net9.0\InvestmentTracker.Core.AssemblyInfoInputs.cache
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Core\obj\Debug\net9.0\InvestmentTracker.Core.AssemblyInfo.cs
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Core\obj\Debug\net9.0\InvestmentTracker.Core.csproj.CoreCompileInputs.cache
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Core\obj\Debug\net9.0\InvestmentTracker.Core.dll
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Core\obj\Debug\net9.0\refint\InvestmentTracker.Core.dll
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Core\obj\Debug\net9.0\InvestmentTracker.Core.pdb
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Core\obj\Debug\net9.0\ref\InvestmentTracker.Core.dll

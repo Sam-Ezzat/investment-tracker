@@ -1,0 +1,68 @@
+@model InvestmentTracker.Application.DTOs.InvestmentCycleDto
+@{
+    ViewData["Title"] = "Delete Investment Cycle";
+}
+
+@section Breadcrumb {
+    <li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index">Home</a></li>
+    <li class="breadcrumb-item"><a asp-action="Index">Investment Cycles</a></li>
+    <li class="breadcrumb-item active">Delete</li>
+}
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card card-danger">
+            <div class="card-header">
+                <h3 class="card-title">Delete Investment Cycle</h3>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Are you sure you want to delete this investment cycle?
+                </div>
+                
+                <dl class="row">
+                    <dt class="col-sm-4">Participant</dt>
+                    <dd class="col-sm-8">@Model.ParticipantName</dd>
+                    
+                    <dt class="col-sm-4">Principal Amount</dt>
+                    <dd class="col-sm-8 currency">@Model.PrincipalAmount.ToString("N2")</dd>
+                    
+                    <dt class="col-sm-4">Start Date</dt>
+                    <dd class="col-sm-8">@Model.StartDate.ToString("MMMM dd, yyyy")</dd>
+                    
+                    <dt class="col-sm-4">End Date</dt>
+                    <dd class="col-sm-8">@Model.EndDate.ToString("MMMM dd, yyyy")</dd>
+                    
+                    <dt class="col-sm-4">Duration</dt>
+                    <dd class="col-sm-8">@Model.DurationMonths months</dd>
+                    
+                    <dt class="col-sm-4">Interest Type</dt>
+                    <dd class="col-sm-8">@Model.InterestType</dd>
+                    
+                    <dt class="col-sm-4">Interest Rate</dt>
+                    <dd class="col-sm-8">@Model.InterestRate.ToString("N2")%</dd>
+                    
+                    <dt class="col-sm-4">Expected Return</dt>
+                    <dd class="col-sm-8 currency">@Model.FinalAmount.ToString("N2")</dd>
+                    
+                    <dt class="col-sm-4">Status</dt>
+                    <dd class="col-sm-8">
+                        <span class="badge badge-status-@Model.Status.ToString().ToLower()">@Model.Status</span>
+                    </dd>
+                </dl>
+            </div>
+            <div class="card-footer">
+                <form asp-action="DeleteConfirmed" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Confirm Delete
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

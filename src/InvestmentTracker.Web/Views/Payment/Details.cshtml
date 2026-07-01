@@ -1,0 +1,74 @@
+@model InvestmentTracker.Application.DTOs.PaymentDto
+@{
+    ViewData["Title"] = "Payment Details";
+}
+
+@section Breadcrumb {
+    <li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index">Home</a></li>
+    <li class="breadcrumb-item"><a asp-action="Index">Payments</a></li>
+    <li class="breadcrumb-item active">Details</li>
+}
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card card-primary card-outline">
+            <div class="card-header">
+                <h3 class="card-title">Payment Information</h3>
+                <div class="card-tools">
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-sm">
+                        <i class="fas fa-edit"></i> Edit
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <dl class="row">
+                    <dt class="col-sm-5">Payment Date</dt>
+                    <dd class="col-sm-7">@Model.PaymentDate.ToString("MMMM dd, yyyy")</dd>
+                    
+                    <dt class="col-sm-5">Amount</dt>
+                    <dd class="col-sm-7 currency">@Model.Amount.ToString("N2")</dd>
+                    
+                    <dt class="col-sm-5">Payment Type</dt>
+                    <dd class="col-sm-7"><span class="badge badge-info">@Model.PaymentType</span></dd>
+                    
+                    <dt class="col-sm-5">Payment Method</dt>
+                    <dd class="col-sm-7"><span class="badge badge-secondary">@Model.PaymentMethod</span></dd>
+                    
+                    <dt class="col-sm-5">Reference Number</dt>
+                    <dd class="col-sm-7">@(string.IsNullOrEmpty(Model.ReferenceNumber) ? "N/A" : Model.ReferenceNumber)</dd>
+                    
+                    <dt class="col-sm-5">Received By</dt>
+                    <dd class="col-sm-7">@(string.IsNullOrEmpty(Model.ReceivedBy) ? "N/A" : Model.ReceivedBy)</dd>
+                    
+                    <dt class="col-sm-5">Participant</dt>
+                    <dd class="col-sm-7">
+                        <a asp-controller="Participant" asp-action="Details" asp-route-id="@Model.InvestmentCycleId">
+                            @Model.ParticipantName
+                        </a>
+                    </dd>
+                    
+                    <dt class="col-sm-5">Investment Cycle</dt>
+                    <dd class="col-sm-7">
+                        <a asp-controller="InvestmentCycle" asp-action="Details" asp-route-id="@Model.InvestmentCycleId" class="btn btn-sm btn-info">
+                            <i class="fas fa-eye"></i> View Cycle
+                        </a>
+                    </dd>
+                    
+                    @if (!string.IsNullOrEmpty(Model.Notes))
+                    {
+                        <dt class="col-sm-5">Notes</dt>
+                        <dd class="col-sm-7">@Model.Notes</dd>
+                    }
+                </dl>
+            </div>
+            <div class="card-footer">
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back to List
+                </a>
+                <a asp-controller="InvestmentCycle" asp-action="Details" asp-route-id="@Model.InvestmentCycleId" class="btn btn-primary">
+                    <i class="fas fa-sync-alt"></i> View Cycle
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,116 @@
+@model InvestmentTracker.Application.DTOs.CreatePaymentDto
+@{
+    ViewData["Title"] = "Edit Payment";
+}
+
+@section Breadcrumb {
+    <li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index">Home</a></li>
+    <li class="breadcrumb-item"><a asp-action="Index">Payments</a></li>
+    <li class="breadcrumb-item active">Edit</li>
+}
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card card-warning">
+            <div class="card-header">
+                <h3 class="card-title">Edit Payment</h3>
+            </div>
+            <form asp-action="Edit" method="post">
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                    
+                    <div class="form-group">
+                        <label asp-for="InvestmentCycleId"></label>
+                        <select asp-for="InvestmentCycleId" class="form-control" asp-items="ViewBag.InvestmentCycles">
+                            <option value="">-- Select Investment Cycle --</option>
+                        </select>
+                        <span asp-validation-for="InvestmentCycleId" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="PaymentScheduleId"></label>
+                        <select asp-for="PaymentScheduleId" class="form-control" asp-items="ViewBag.PaymentSchedules">
+                            <option value="">-- Optional: Link to Schedule --</option>
+                        </select>
+                        <small class="form-text text-muted">Select a schedule to link this payment, or leave blank for ad-hoc payment.</small>
+                        <span asp-validation-for="PaymentScheduleId" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Amount"></label>
+                                <input asp-for="Amount" class="form-control" />
+                                <span asp-validation-for="Amount" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="PaymentDate"></label>
+                                <input asp-for="PaymentDate" type="date" class="form-control" />
+                                <span asp-validation-for="PaymentDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="PaymentType"></label>
+                                <select asp-for="PaymentType" class="form-control" asp-items="ViewBag.PaymentTypes">
+                                    <option value="">-- Select Type --</option>
+                                </select>
+                                <span asp-validation-for="PaymentType" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="PaymentMethod"></label>
+                                <select asp-for="PaymentMethod" class="form-control" asp-items="ViewBag.PaymentMethods">
+                                    <option value="">-- Select Method --</option>
+                                </select>
+                                <span asp-validation-for="PaymentMethod" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="ReferenceNumber"></label>
+                        <input asp-for="ReferenceNumber" class="form-control" />
+                        <span asp-validation-for="ReferenceNumber" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="ReceivedBy"></label>
+                        <input asp-for="ReceivedBy" class="form-control" />
+                        <span asp-validation-for="ReceivedBy" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="Notes"></label>
+                        <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Notes" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        Note: Changes to payment amount will update the linked schedule.
+                    </div>
+                </div>
+                
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-warning">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

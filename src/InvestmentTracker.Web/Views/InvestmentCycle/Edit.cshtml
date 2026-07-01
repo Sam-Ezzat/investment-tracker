@@ -1,0 +1,104 @@
+@model InvestmentTracker.Application.DTOs.CreateInvestmentCycleDto
+@{
+    ViewData["Title"] = "Edit Investment Cycle";
+}
+
+@section Breadcrumb {
+    <li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index">Home</a></li>
+    <li class="breadcrumb-item"><a asp-action="Index">Investment Cycles</a></li>
+    <li class="breadcrumb-item active">Edit</li>
+}
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card card-warning">
+            <div class="card-header">
+                <h3 class="card-title">Edit Investment Cycle</h3>
+            </div>
+            <form asp-action="Edit" method="post">
+                <div class="card-body">
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                    
+                    <div class="form-group">
+                        <label asp-for="ParticipantId"></label>
+                        <select asp-for="ParticipantId" class="form-control" asp-items="ViewBag.Participants">
+                            <option value="">-- Select Participant --</option>
+                        </select>
+                        <span asp-validation-for="ParticipantId" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="PrincipalAmount"></label>
+                                <input asp-for="PrincipalAmount" class="form-control" />
+                                <span asp-validation-for="PrincipalAmount" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="StartDate"></label>
+                                <input asp-for="StartDate" type="date" class="form-control" />
+                                <span asp-validation-for="StartDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="DurationMonths"></label>
+                                <input asp-for="DurationMonths" class="form-control" />
+                                <span asp-validation-for="DurationMonths" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="InterestType"></label>
+                                <select asp-for="InterestType" class="form-control">
+                                    <option value="1">Monthly Percentage</option>
+                                    <option value="2">Fixed Profit at End</option>
+                                </select>
+                                <span asp-validation-for="InterestType" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="InterestRate"></label>
+                        <input asp-for="InterestRate" class="form-control" />
+                        <small class="form-text text-muted">
+                            For Monthly Percentage: Enter percentage rate (e.g., 5 for 5%). 
+                            For Fixed Profit at End: Enter fixed profit amount.
+                        </small>
+                        <span asp-validation-for="InterestRate" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label asp-for="Notes"></label>
+                        <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Notes" class="text-danger"></span>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        Note: Changing cycle details will regenerate payment schedules.
+                    </div>
+                </div>
+                
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-warning">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

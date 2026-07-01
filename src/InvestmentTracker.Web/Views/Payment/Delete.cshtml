@@ -1,0 +1,62 @@
+@model InvestmentTracker.Application.DTOs.PaymentDto
+@{
+    ViewData["Title"] = "Delete Payment";
+}
+
+@section Breadcrumb {
+    <li class="breadcrumb-item"><a asp-controller="Dashboard" asp-action="Index">Home</a></li>
+    <li class="breadcrumb-item"><a asp-action="Index">Payments</a></li>
+    <li class="breadcrumb-item active">Delete</li>
+}
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card card-danger">
+            <div class="card-header">
+                <h3 class="card-title">Delete Payment</h3>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Are you sure you want to delete this payment?
+                </div>
+                
+                <dl class="row">
+                    <dt class="col-sm-5">Payment Date</dt>
+                    <dd class="col-sm-7">@Model.PaymentDate.ToString("MMMM dd, yyyy")</dd>
+                    
+                    <dt class="col-sm-5">Amount</dt>
+                    <dd class="col-sm-7 currency">@Model.Amount.ToString("N2")</dd>
+                    
+                    <dt class="col-sm-5">Payment Type</dt>
+                    <dd class="col-sm-7"><span class="badge badge-info">@Model.PaymentType</span></dd>
+                    
+                    <dt class="col-sm-5">Payment Method</dt>
+                    <dd class="col-sm-7"><span class="badge badge-secondary">@Model.PaymentMethod</span></dd>
+                    
+                    <dt class="col-sm-5">Reference Number</dt>
+                    <dd class="col-sm-7">@(string.IsNullOrEmpty(Model.ReferenceNumber) ? "N/A" : Model.ReferenceNumber)</dd>
+                    
+                    <dt class="col-sm-5">Participant</dt>
+                    <dd class="col-sm-7">@Model.ParticipantName</dd>
+                </dl>
+                
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    Deleting this payment will reverse its effect on the linked payment schedule.
+                </div>
+            </div>
+            <div class="card-footer">
+                <form asp-action="DeleteConfirmed" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Confirm Delete
+                    </button>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
