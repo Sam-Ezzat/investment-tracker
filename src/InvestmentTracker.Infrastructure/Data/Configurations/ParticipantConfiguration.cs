@@ -61,7 +61,7 @@ public class ParticipantConfiguration : IEntityTypeConfiguration<Participant>
 
         builder.HasIndex(p => p.NationalId)
             .IsUnique()
-            .HasFilter("[NationalId] IS NOT NULL")
+            .HasFilter("\"NationalId\" IS NOT NULL")
             .HasDatabaseName("IX_Participants_NationalId");
 
         builder.HasIndex(p => p.Phone)

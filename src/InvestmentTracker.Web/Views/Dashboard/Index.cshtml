@@ -7,6 +7,24 @@
     <li class="breadcrumb-item active">Dashboard</li>
 }
 
+<!-- Notification Permission Banner -->
+<div class="row" id="notificationPermissionBanner" style="display: none;">
+    <div class="col-12">
+        <div class="alert alert-info alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fas fa-bell"></i> Enable Notifications</h5>
+            Get real-time alerts for payments due today, payments due tomorrow, investments ending soon, and overdue payments.
+            <br><br>
+            <button type="button" class="btn btn-primary btn-sm" id="enableNotificationsBtn">
+                <i class="fas fa-check"></i> Enable Notifications
+            </button>
+            <button type="button" class="btn btn-default btn-sm" data-dismiss="alert">
+                Maybe Later
+            </button>
+        </div>
+    </div>
+</div>
+
 <!-- Summary Cards Row 1 -->
 <div class="row">
     <!-- Total Capital -->
@@ -582,5 +600,21 @@
                 }
             });
         });
+
+        // Check if notification permission banner should be shown
+        setTimeout(function() {
+            if ('Notification' in window && Notification.permission === 'default') {
+                // Check if user dismissed the banner before
+                const dismissed = localStorage.getItem('notificationBannerDismissed');
+                if (!dismissed) {
+                    document.getElementById('notificationPermissionBanner').style.display = 'block';
+                }
+            }
+
+            // Save dismissal when banner is closed
+            $('#notificationPermissionBanner').on('closed.bs.alert', function() {
+                localStorage.setItem('notificationBannerDismissed', 'true');
+            });
+        }, 2000);
     </script>
 }

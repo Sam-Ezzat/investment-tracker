@@ -27,8 +27,8 @@ public class PaymentService : IPaymentService
         return await _context.Payments
             .Include(p => p.InvestmentCycle)
                 .ThenInclude(ic => ic.Participant)
-            .Select(p => MapToDto(p))
             .OrderByDescending(p => p.PaymentDate)
+            .Select(p => MapToDto(p))
             .ToListAsync();
     }
 
@@ -38,8 +38,8 @@ public class PaymentService : IPaymentService
             .Include(p => p.InvestmentCycle)
                 .ThenInclude(ic => ic.Participant)
             .Where(p => p.InvestmentCycleId == investmentCycleId)
-            .Select(p => MapToDto(p))
             .OrderByDescending(p => p.PaymentDate)
+            .Select(p => MapToDto(p))
             .ToListAsync();
     }
 
@@ -49,8 +49,8 @@ public class PaymentService : IPaymentService
             .Include(p => p.InvestmentCycle)
                 .ThenInclude(ic => ic.Participant)
             .Where(p => p.PaymentDate >= startDate && p.PaymentDate <= endDate)
-            .Select(p => MapToDto(p))
             .OrderByDescending(p => p.PaymentDate)
+            .Select(p => MapToDto(p))
             .ToListAsync();
     }
 
@@ -195,8 +195,8 @@ public class PaymentService : IPaymentService
             .Include(p => p.InvestmentCycle)
                 .ThenInclude(ic => ic.Participant)
             .Where(p => p.PaymentDate >= startDate)
-            .Select(p => MapToDto(p))
             .OrderByDescending(p => p.PaymentDate)
+            .Select(p => MapToDto(p))
             .ToListAsync();
     }
 

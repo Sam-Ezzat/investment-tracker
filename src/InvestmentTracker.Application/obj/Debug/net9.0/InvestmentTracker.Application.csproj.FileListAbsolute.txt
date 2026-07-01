@@ -13,3 +13,4 @@ C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Application\obj\Debug\n
 C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Application\obj\Debug\net9.0\refint\InvestmentTracker.Application.dll
 C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Application\obj\Debug\net9.0\InvestmentTracker.Application.pdb
 C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Application\obj\Debug\net9.0\ref\InvestmentTracker.Application.dll
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Application\obj\Debug\net9.0\InvestmentTracker.Application.sourcelink.json

@@ -23,8 +23,8 @@ public class PaymentScheduleService : IPaymentScheduleService
     {
         return await _context.PaymentSchedules
             .Where(ps => ps.InvestmentCycleId == investmentCycleId)
-            .Select(ps => MapToDto(ps))
             .OrderBy(ps => ps.ScheduledDate)
+            .Select(ps => MapToDto(ps))
             .ToListAsync();
     }
 
@@ -40,8 +40,8 @@ public class PaymentScheduleService : IPaymentScheduleService
             .Include(ps => ps.InvestmentCycle)
                 .ThenInclude(ic => ic.Participant)
             .Where(ps => ps.Status == status)
-            .Select(ps => MapToDto(ps))
             .OrderBy(ps => ps.ScheduledDate)
+            .Select(ps => MapToDto(ps))
             .ToListAsync();
     }
 
@@ -54,8 +54,8 @@ public class PaymentScheduleService : IPaymentScheduleService
                 .ThenInclude(ic => ic.Participant)
             .Where(ps => ps.ScheduledDate < today && 
                         ps.Status != PaymentStatus.Paid)
-            .Select(ps => MapToDto(ps))
             .OrderBy(ps => ps.ScheduledDate)
+            .Select(ps => MapToDto(ps))
             .ToListAsync();
     }
 
@@ -70,8 +70,8 @@ public class PaymentScheduleService : IPaymentScheduleService
             .Where(ps => ps.ScheduledDate >= today && 
                         ps.ScheduledDate <= targetDate &&
                         ps.Status != PaymentStatus.Paid)
-            .Select(ps => MapToDto(ps))
             .OrderBy(ps => ps.ScheduledDate)
+            .Select(ps => MapToDto(ps))
             .ToListAsync();
     }
 
