@@ -1,11 +1,12 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace InvestmentTracker.Infrastructure.Data.Migrations
+namespace InvestmentTracker.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -17,21 +18,21 @@ namespace InvestmentTracker.Infrastructure.Data.Migrations
                 name: "ApplicationUsers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    FullName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Role = table.Column<int>(type: "int", nullable: false, defaultValue: 3),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    LastLoginDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    Notes = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Username = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    PasswordHash = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
+                    FullName = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    Role = table.Column<int>(type: "integer", nullable: false, defaultValue: 3),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
+                    LastLoginDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
+                    Notes = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -42,21 +43,21 @@ namespace InvestmentTracker.Infrastructure.Data.Migrations
                 name: "Participants",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FullName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    NationalId = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FullName = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    Email = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    Phone = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
+                    NationalId = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    Address = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
                     DateOfBirth = table.Column<DateOnly>(type: "date", nullable: true),
                     RegistrationDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    Notes = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
+                    Notes = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -67,19 +68,19 @@ namespace InvestmentTracker.Infrastructure.Data.Migrations
                 name: "Settings",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Key = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
-                    Category = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    DataType = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false, defaultValue: "string"),
-                    IsVisible = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    DisplayOrder = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Key = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Value = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
+                    Category = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Description = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
+                    DataType = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false, defaultValue: "string"),
+                    IsVisible = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
+                    DisplayOrder = table.Column<int>(type: "integer", nullable: false, defaultValue: 0),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -90,24 +91,24 @@ namespace InvestmentTracker.Infrastructure.Data.Migrations
                 name: "InvestmentCycles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ParticipantId = table.Column<int>(type: "int", nullable: false),
-                    PrincipalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ParticipantId = table.Column<int>(type: "integer", nullable: false),
+                    PrincipalAmount = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
                     StartDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    DurationMonths = table.Column<int>(type: "int", nullable: false),
+                    DurationMonths = table.Column<int>(type: "integer", nullable: false),
                     EndDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    InterestType = table.Column<int>(type: "int", nullable: false),
-                    InterestRate = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    MonthlyInterest = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TotalExpectedProfit = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    FinalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false, defaultValue: 1),
-                    Notes = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
+                    InterestType = table.Column<int>(type: "integer", nullable: false),
+                    InterestRate = table.Column<decimal>(type: "numeric(18,4)", nullable: false),
+                    MonthlyInterest = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
+                    TotalExpectedProfit = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
+                    FinalAmount = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false, defaultValue: 1),
+                    Notes = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -124,20 +125,20 @@ namespace InvestmentTracker.Infrastructure.Data.Migrations
                 name: "PaymentSchedules",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    InvestmentCycleId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    InvestmentCycleId = table.Column<int>(type: "integer", nullable: false),
                     ScheduledDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    ScheduledAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PaymentType = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false, defaultValue: 1),
-                    PaidAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false, defaultValue: 0m),
+                    ScheduledAmount = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
+                    PaymentType = table.Column<int>(type: "integer", nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false, defaultValue: 1),
+                    PaidAmount = table.Column<decimal>(type: "numeric(18,2)", nullable: false, defaultValue: 0m),
                     PaidDate = table.Column<DateOnly>(type: "date", nullable: true),
-                    Notes = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
+                    Notes = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -154,21 +155,21 @@ namespace InvestmentTracker.Infrastructure.Data.Migrations
                 name: "Payments",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    InvestmentCycleId = table.Column<int>(type: "int", nullable: false),
-                    PaymentScheduleId = table.Column<int>(type: "int", nullable: true),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    InvestmentCycleId = table.Column<int>(type: "integer", nullable: false),
+                    PaymentScheduleId = table.Column<int>(type: "integer", nullable: true),
+                    Amount = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
                     PaymentDate = table.Column<DateOnly>(type: "date", nullable: false),
-                    PaymentType = table.Column<int>(type: "int", nullable: false),
-                    PaymentMethod = table.Column<int>(type: "int", nullable: false),
-                    ReferenceNumber = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    ReceivedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    Notes = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedBy = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
+                    PaymentType = table.Column<int>(type: "integer", nullable: false),
+                    PaymentMethod = table.Column<int>(type: "integer", nullable: false),
+                    ReferenceNumber = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    ReceivedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    Notes = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    CreatedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    ModifiedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    ModifiedBy = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -264,7 +265,7 @@ namespace InvestmentTracker.Infrastructure.Data.Migrations
                 table: "Participants",
                 column: "NationalId",
                 unique: true,
-                filter: "[NationalId] IS NOT NULL");
+                filter: "\"NationalId\" IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Participants_Phone",

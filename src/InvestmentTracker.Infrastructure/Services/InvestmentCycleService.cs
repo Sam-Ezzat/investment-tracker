@@ -28,8 +28,8 @@ public class InvestmentCycleService : IInvestmentCycleService
         return await _context.InvestmentCycles
             .Include(ic => ic.Participant)
             .Include(ic => ic.Payments)
-            .Select(ic => MapToDto(ic))
             .OrderByDescending(ic => ic.StartDate)
+            .Select(ic => MapToDto(ic))
             .ToListAsync();
     }
 
@@ -39,8 +39,8 @@ public class InvestmentCycleService : IInvestmentCycleService
             .Include(ic => ic.Participant)
             .Include(ic => ic.Payments)
             .Where(ic => ic.ParticipantId == participantId)
-            .Select(ic => MapToDto(ic))
             .OrderByDescending(ic => ic.StartDate)
+            .Select(ic => MapToDto(ic))
             .ToListAsync();
     }
 
@@ -50,8 +50,8 @@ public class InvestmentCycleService : IInvestmentCycleService
             .Include(ic => ic.Participant)
             .Include(ic => ic.Payments)
             .Where(ic => ic.Status == status)
-            .Select(ic => MapToDto(ic))
             .OrderByDescending(ic => ic.StartDate)
+            .Select(ic => MapToDto(ic))
             .ToListAsync();
     }
 
@@ -200,8 +200,8 @@ public class InvestmentCycleService : IInvestmentCycleService
             .Where(ic => ic.Status == InvestmentStatus.Active &&
                         ic.EndDate >= today &&
                         ic.EndDate <= targetDate)
-            .Select(ic => MapToDto(ic))
             .OrderBy(ic => ic.EndDate)
+            .Select(ic => MapToDto(ic))
             .ToListAsync();
     }
 

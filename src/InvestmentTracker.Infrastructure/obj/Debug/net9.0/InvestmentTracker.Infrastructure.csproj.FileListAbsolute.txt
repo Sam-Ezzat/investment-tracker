@@ -36,3 +36,4 @@ C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Infrastructure\bin\Debu
 C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Infrastructure\bin\Debug\net9.0\LatoFont\Lato-Thin.ttf
 C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Infrastructure\bin\Debug\net9.0\LatoFont\Lato-ThinItalic.ttf
 C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Infrastructure\bin\Debug\net9.0\LatoFont\OFL.txt
+C:\Users\SAM-PC\investment-tracker\src\InvestmentTracker.Infrastructure\obj\Debug\net9.0\InvestmentTracker.Infrastructure.sourcelink.json
